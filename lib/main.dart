@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/intl_standalone.dart';
-import 'package:weather_app_3/views/home.dart';
-import 'package:weather_app_3/views/home_data.dart';
+import 'package:weather_app_3/views/weather_home.dart';
 
 void main() async {
   await initIntlAndLocale();
@@ -12,7 +10,7 @@ void main() async {
 
 Future<void> initIntlAndLocale() async {
   Intl.defaultLocale = 'fr_FR';
-  await findSystemLocale();
+  //await findSystemLocale();
   await initializeDateFormatting(Intl.defaultLocale!, null);
 }
 
@@ -28,13 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Column(
-        children: const [
-          Expanded(child: HomeData()),
-          Divider(),
-          Expanded(child: Home()),
-        ],
-      ),
+      home: const WeatherHome(),
     );
   }
 }

@@ -3,12 +3,20 @@ part of 'weather_cubit.dart';
 @immutable
 abstract class WeatherState {}
 
-class WeatherInitial extends WeatherState {}
+class WeatherInitialState extends WeatherState {}
 
-class WeatherLoading extends WeatherState {}
+class WeatherLoadingState extends WeatherState {}
 
-class WeatherLoaded extends WeatherState {
+class WeatherLoadedState extends WeatherState {
   final WeatherData weatherData;
 
-  WeatherLoaded({required this.weatherData});
+  WeatherLoadedState({required this.weatherData});
+}
+
+class WeatherSelectedState extends WeatherLoadedState {
+  final WeatherDay weatherDay;
+
+  WeatherSelectedState(
+      {required WeatherData weatherData, required this.weatherDay})
+      : super(weatherData: weatherData);
 }
