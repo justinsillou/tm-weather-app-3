@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const WeatherHome(),
+      home: const WeatherHomeV1(),
     );
   }
 }
