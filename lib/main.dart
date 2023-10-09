@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app_3/views/weather_home.dart';
+import 'package:weather_app_3/views/weather_home_v1.dart';
 
 void main() async {
   await initIntlAndLocale();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const WeatherHome(),
+      home: const WeatherHomeV1(),
     );
   }
 }

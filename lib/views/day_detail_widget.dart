@@ -46,6 +46,7 @@ class _DayDetailWidgetState extends State<DayDetailWidget> {
               ),
               Image.asset(
                 Utils.weatherCodeToImage(widget.weatherDay.weatherCode),
+                height: 50,
               ),
               const Divider(),
               Row(

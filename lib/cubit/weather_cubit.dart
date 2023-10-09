@@ -12,8 +12,8 @@ class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(WeatherInitialState());
 
   refresh({
-    double latitude = 52.52,
-    double longitude = 13.41,
+    double latitude = 50.61,
+    double longitude = 3.13,
   }) async {
     emit(WeatherLoadingState());
 
