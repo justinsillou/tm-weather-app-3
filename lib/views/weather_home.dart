@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app_3/cubit/weather_cubit.dart';
-import 'package:weather_app_3/utils/utils.dart';
+import 'package:weather_app_3/models/weather_day.dart';
 import 'package:weather_app_3/views/day_weather_widget.dart';
+import 'package:weather_app_3/views/loading_widget.dart';
+import 'package:weather_app_3/views/selected_day_widget.dart';
+import 'package:weather_app_3/views/weather_home_v1.dart';
 
 class WeatherHome extends StatelessWidget {
   const WeatherHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => WeatherCubit(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => WeatherCubit(),
       child: BlocBuilder<WeatherCubit, WeatherState>(
         builder: (context, state) {
           var buttons = [
@@ -58,16 +56,28 @@ class WeatherHome extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text('Météo'),
+      title: const Text('Météo V2'),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const WeatherHomeV1(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.swap_horiz),
+        ),
+      ],
     );
   }
 
   Widget _buildBody(BuildContext context, WeatherState state) {
     if (state is WeatherLoadingState) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    } else if (state is WeatherLoadedState) {
+      return const LoadingWidget();
+    }
+
+    if (state is WeatherLoadedState) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -76,68 +86,42 @@ class WeatherHome extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemCount: state.weatherData.daily.time.length,
-                itemBuilder: (context, index) => DayWeatherWidget(
-                  weatherDay:
-                      state.weatherData.daily.getDayByIndex(index: index),
-                ),
+                itemBuilder: (context, index) {
+                  WeatherDay weatherDay =
+                      state.weatherData.daily.getDayByIndex(index: index);
+                  return DayWeatherWidget(
+                    weatherDay: weatherDay,
+                    selected: state is WeatherSelectedState
+                        ? state.weatherDay == weatherDay
+                        : false,
+                    interactive: true,
+                  );
+                },
               ),
             ),
             const Divider(),
-            ...buildSelectedDayWidgets(context, state),
+            buildSelectedDayWidget(context, state),
           ],
         ),
       );
-    } else {
-      return Center(
-        child: ElevatedButton(
-          onPressed: () => BlocProvider.of<WeatherCubit>(context).refresh(),
-          child: const Text("Charger la météo"),
-        ),
-      );
     }
+
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          context.read<WeatherCubit>().refresh();
+        },
+        child: const Text("Charger la météo"),
+      ),
+    );
   }
 
-  List<Widget> buildSelectedDayWidgets(
+  Widget buildSelectedDayWidget(
       BuildContext context, WeatherLoadedState state) {
     if (state is WeatherSelectedState) {
-      return [
-        Text(
-          DateFormat.yMMMMEEEEd().format(state.weatherDay.day),
-          textAlign: TextAlign.center,
-        ),
-        const Divider(),
-        Expanded(
-          child: Image.asset(
-            Utils.weatherCodeToImage(state.weatherDay.weatherCode),
-          ),
-        ),
-        const Divider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Min: ${state.weatherDay.temperature2mMin}°C",
-            ),
-            Text(
-              "Max: ${state.weatherDay.temperature2mMax}°C",
-            ),
-          ],
-        ),
-        const Divider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Sunrise: ${DateFormat.Hms().format(state.weatherDay.sunrise)}",
-            ),
-            Text(
-              "Sunset: ${DateFormat.Hms().format(state.weatherDay.sunset)}",
-            ),
-          ],
-        )
-      ];
+      return SelectedDayWidget(day: state.weatherDay);
     }
 
-    return [];
+    return const Center(child: Text("Aucun jour sélectionné"));
   }
 }

@@ -42,6 +42,7 @@ dependencies:
   meta: 
   intl:
   equatable: 
+  weather_icons:
 
 dev_dependencies:
   flutter_test:
