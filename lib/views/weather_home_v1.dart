@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_app_3/models/weather_data.dart';
+import 'package:weather_app_3/models/weather/weather_data.dart';
 import 'package:weather_app_3/views/day_weather_widget.dart';
 import 'package:weather_app_3/views/loading_widget.dart';
 import 'package:weather_app_3/views/weather_home.dart';

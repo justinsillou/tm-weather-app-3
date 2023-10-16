@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app_3/cubit/weather_cubit.dart';
-import 'package:weather_app_3/models/weather_day.dart';
+import 'package:weather_app_3/models/weather/weather_day.dart';
 import 'package:weather_app_3/utils/utils.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -59,8 +59,7 @@ class DayWeatherWidget extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              if (DateFormat.yMd().format(DateTime.now()) ==
-                  DateFormat.yMd().format(weatherDay.day)) ...{
+              if (DateFormat.yMd().format(DateTime.now()) == DateFormat.yMd().format(weatherDay.day)) ...{
                 const Icon(
                   Icons.today,
                   size: 16,

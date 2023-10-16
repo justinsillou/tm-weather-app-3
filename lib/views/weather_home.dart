@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app_3/cubit/weather_cubit.dart';
-import 'package:weather_app_3/models/weather_day.dart';
+import 'package:weather_app_3/models/weather/weather_day.dart';
 import 'package:weather_app_3/views/day_weather_widget.dart';
 import 'package:weather_app_3/views/loading_widget.dart';
 import 'package:weather_app_3/views/selected_day_widget.dart';
@@ -87,13 +87,10 @@ class WeatherHome extends StatelessWidget {
               child: ListView.builder(
                 itemCount: state.weatherData.daily.time.length,
                 itemBuilder: (context, index) {
-                  WeatherDay weatherDay =
-                      state.weatherData.daily.getDayByIndex(index: index);
+                  WeatherDay weatherDay = state.weatherData.daily.getDayByIndex(index: index);
                   return DayWeatherWidget(
                     weatherDay: weatherDay,
-                    selected: state is WeatherSelectedState
-                        ? state.weatherDay == weatherDay
-                        : false,
+                    selected: state is WeatherSelectedState ? state.weatherDay == weatherDay : false,
                     interactive: true,
                   );
                 },
@@ -116,8 +113,7 @@ class WeatherHome extends StatelessWidget {
     );
   }
 
-  Widget buildSelectedDayWidget(
-      BuildContext context, WeatherLoadedState state) {
+  Widget buildSelectedDayWidget(BuildContext context, WeatherLoadedState state) {
     if (state is WeatherSelectedState) {
       return SelectedDayWidget(day: state.weatherDay);
     }

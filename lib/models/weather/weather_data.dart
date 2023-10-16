@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app_3/models/weather_daily.dart';
+import 'package:weather_app_3/models/weather/weather_daily.dart';
 
 part 'weather_data.g.dart';
 
@@ -16,8 +16,7 @@ class WeatherData {
     required this.daily,
   });
 
-  factory WeatherData.fromJson(Map<String, dynamic> json) =>
-      _$WeatherDataFromJson(json);
+  factory WeatherData.fromJson(Map<String, dynamic> json) => _$WeatherDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherDataToJson(this);
 }

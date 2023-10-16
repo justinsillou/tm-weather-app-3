@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app_3/models/weather_day.dart';
+import 'package:weather_app_3/models/weather/weather_day.dart';
 
 part 'weather_daily.g.dart';
 
@@ -48,8 +48,7 @@ class WeatherDaily {
     return getDayByIndex(index: index);
   }
 
-  factory WeatherDaily.fromJson(Map<String, dynamic> json) =>
-      _$WeatherDailyFromJson(json);
+  factory WeatherDaily.fromJson(Map<String, dynamic> json) => _$WeatherDailyFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherDailyToJson(this);
 }

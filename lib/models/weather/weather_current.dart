@@ -22,8 +22,7 @@ class WeatherCurrent {
     required this.weatherCode,
   });
 
-  factory WeatherCurrent.fromJson(Map<String, dynamic> json) =>
-      _$WeatherCurrentFromJson(json);
+  factory WeatherCurrent.fromJson(Map<String, dynamic> json) => _$WeatherCurrentFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherCurrentToJson(this);
 }
