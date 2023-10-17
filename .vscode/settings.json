@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
         "lib/models/weather"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
